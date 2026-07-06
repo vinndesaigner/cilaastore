@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CILAASTORE — STORE TERMURAH DAN TERPERCAYA</title>
+<link rel="icon" type="image/jpeg" href="fotocila.jpeg">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #1A0E17;
+    --panel: #2B1523;
+    --panel-hi: #3A1C2E;
+    --line: #4A2438;
+    --gold: #FF6FB5;
+    --gold-dim: #b8477f;
+    --blue: #FF9ED2;
+    --text: #FBE9F2;
+    --muted: #B98AA4;
+    --danger: #FF6B6B;
+    --success: #4ADE80;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: radial-gradient(1200px 600px at 50% -10%, #3a1530 0%, var(--bg) 60%);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Floating sparkle/diamond decoration */
+  .sparkle-field{
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .sparkle{
+    position: absolute;
+    bottom: -40px;
+    clip-path: polygon(50% 0%, 100% 35%, 78% 100%, 22% 100%, 0% 35%);
+    background: linear-gradient(160deg, #ffe0f0, var(--gold) 55%, #a9337a);
+    opacity: 0;
+    filter: drop-shadow(0 0 6px rgba(255,111,181,0.55));
+    animation-name: floatUp;
+    animation-timing-function: ease-in;
+    animation-iteration-count: infinite;
+  }
+  .sparkle.dot{
+    clip-path: none;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, var(--gold) 60%, transparent 100%);
+    filter: blur(0.3px) drop-shadow(0 0 4px rgba(255,158,210,0.7));
+  }
+  @keyframes floatUp{
+    0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    8%{ opacity: 0.85; }
+    50%{ transform: translateY(-52vh) translateX(var(--drift, 20px)) rotate(180deg); }
+    92%{ opacity: 0.7; }
+    100%{ transform: translateY(-108vh) translateX(calc(var(--drift, 20px) * -1)) rotate(360deg); opacity: 0; }
+  }
+
+  .wrap{ position: relative; z-index: 1; }
+  h1,h2,h3{ font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 0.02em; margin: 0; }
+  a{ color: inherit; text-decoration:none; }
+
+  .wrap{ max-width: 720px; margin: 0 auto; padding: 0 20px 60px; }
+
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding: 20px 0; }
+  .back{ font-size:13.5px; color: var(--muted); display:flex; align-items:center; gap:6px; }
+  .back:hover{ color: var(--text); }
+  .logo-text{ font-family:'Rajdhani'; font-weight:700; font-size:18px; letter-spacing:0.04em; }
+  .logo-text span{ color: var(--gold); }
+
+  /* BANNER */
+  .banner{
+    border-radius: 18px; padding: 34px 28px; margin-top: 6px;
+    background: linear-gradient(135deg, #3d1a30 0%, #1a0e17 100%);
+    border: 1px solid var(--line);
+    position: relative; overflow:hidden;
+  }
+  .banner::after{
+    content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px;
+    background: radial-gradient(circle, rgba(255,111,181,0.22), transparent 65%);
+  }
+  .banner-tag{ font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); }
+  .banner h1{ font-size: 30px; margin-top:8px; }
+  .banner p{ color: var(--muted); font-size:14px; margin-top:8px; }
+  .banner .pill{
+    display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:12.5px;
+    background: rgba(74,222,128,0.1); color: var(--success); border:1px solid rgba(74,222,128,0.3);
+    padding:5px 12px; border-radius:999px;
+  }
+
+  /* STEP TRACKER */
+  .tracker{
+    display:flex; justify-content:space-between; margin: 26px 0 4px; position:relative;
+  }
+  .tracker::before{
+    content:''; position:absolute; top:15px; left:6%; right:6%; height:2px; background: var(--line); z-index:0;
+  }
+  .tstep{ position:relative; z-index:1; flex:1; text-align:center; font-size:11.5px; color:var(--muted); }
+  .tstep .circle{
+    width:30px; height:30px; border-radius:50%; background: var(--panel); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 6px; font-family:'Rajdhani'; font-weight:700; color:var(--muted);
+    transition: all .2s ease;
+  }
+  .tstep.active .circle{ border-color: var(--gold); color: var(--gold); }
+  .tstep.done .circle{ background: var(--gold); border-color: var(--gold); color:#1a1305; }
+  .tstep.active span.label, .tstep.done span.label{ color: var(--text); }
+
+  /* SECTION CARD */
+  .card{
+    background: var(--panel); border:1px solid var(--line); border-radius:16px; padding: 22px;
+    margin-top: 18px;
+  }
+  .card h2{ font-size:16px; }
+  .card .sub{ color:var(--muted); font-size:12.5px; margin-top:2px; }
+
+  /* REGION */
+  .region-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:14px; }
+  @media (max-width:520px){ .region-grid{ grid-template-columns: repeat(2,1fr);} }
+  .region{
+    border:1px solid var(--line); background:#0F1526; border-radius:10px; padding:12px 8px;
+    text-align:center; font-size:13px; font-weight:600; cursor:pointer; transition: border-color .15s ease;
+  }
+  .region.selected{ border-color: var(--gold); color: var(--gold); background: var(--panel-hi); }
+
+  /* CATEGORY TABS */
+  .cat-tabs{ display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .cat-tab{
+    border:1px solid var(--line); background:#0F1526; border-radius:999px; padding:7px 16px;
+    font-size:12.5px; font-weight:600; cursor:pointer; color: var(--muted);
+  }
+  .cat-tab.selected{ border-color: var(--blue); color: var(--blue); background: rgba(79,209,255,0.08); }
+
+  .pkg-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:14px; }
+  @media (max-width:520px){ .pkg-grid{ grid-template-columns: repeat(2,1fr);} }
+  .pkg{
+    position:relative; border:1px solid var(--line); background:#0F1526; border-radius:10px;
+    padding:12px 10px; cursor:pointer; text-align:left; transition: border-color .15s ease, transform .1s ease;
+  }
+  .pkg:hover{ transform: translateY(-2px); }
+  .pkg.selected{ border-color: var(--gold); background: var(--panel-hi); }
+  .pkg .amt{ font-family:'Rajdhani'; font-weight:700; font-size:16px; }
+  .pkg .bonus{ font-size:10.5px; color:var(--blue); display:block; height:13px; margin-top:1px; }
+  .pkg .price{ margin-top:8px; font-size:13px; color:var(--gold); font-weight:600; }
+  .pkg .loading-bar{ height:10px; background: var(--line); border-radius:4px; margin-top:8px; overflow:hidden; position:relative; }
+  .pkg .loading-bar::after{
+    content:''; position:absolute; inset:0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shimmer 1.2s infinite;
+  }
+  @keyframes shimmer{ from{ transform: translateX(-100%);} to{ transform: translateX(100%);} }
+
+  /* FORM */
+  .field{ display:flex; flex-direction:column; gap:6px; margin-top:14px; }
+  .field label{ font-size:12px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:520px){ .field-row{ grid-template-columns:1fr; } }
+  .field input{
+    background:#0F1526; border:1px solid var(--line); border-radius:9px; color:var(--text);
+    padding:11px 12px; font-size:14.5px; font-family:'Plus Jakarta Sans'; outline:none;
+  }
+  .field input:focus{ border-color: var(--blue); }
+  .field.invalid input{ border-color: var(--danger); }
+  .field .err{ font-size:11px; color: var(--danger); display:none; }
+  .field.invalid .err{ display:block; }
+
+  .pay-methods{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .pay{ flex:1 1 90px; border:1px solid var(--line); background:#0F1526; border-radius:9px; padding:11px 8px; text-align:center; font-size:12.5px; cursor:pointer; font-weight:600; }
+  .pay.selected{ border-color: var(--blue); color: var(--blue); background: rgba(79,209,255,0.08); }
+
+  .summary{ border-top:1px solid var(--line); padding-top:16px; margin-top:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .summary-lines{ font-size:13px; color:var(--muted); line-height:1.7; }
+  .summary-lines b{ color:var(--text); }
+  .total .label{ font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; }
+  .total .value{ font-family:'Rajdhani'; font-size:24px; font-weight:700; color: var(--gold); }
+
+  .btn{ font-family:'Plus Jakarta Sans'; font-weight:600; font-size:14.5px; border:none; border-radius:10px; padding:13px 22px; cursor:pointer; width:100%; margin-top:16px; }
+  .btn-primary{ background: linear-gradient(135deg, var(--gold), #d9457f); color:#2a0a1a; }
+  .btn-primary:disabled{ opacity:0.4; cursor:not-allowed; }
+
+  /* NOTES */
+  .notes{ background: rgba(79,209,255,0.06); border:1px solid rgba(79,209,255,0.2); border-radius:14px; padding:18px 20px; margin-top:18px; font-size:13px; color: var(--muted); line-height:1.9; }
+  .notes b{ color: var(--text); }
+
+  /* MODAL */
+  .overlay{ position:fixed; inset:0; background: rgba(6,8,16,0.72); backdrop-filter: blur(3px); display:none; align-items:center; justify-content:center; z-index:50; padding:20px; }
+  .overlay.show{ display:flex; }
+  .modal{ background: var(--panel); border:1px solid var(--line); border-radius:18px; padding:34px; max-width:380px; width:100%; text-align:center; }
+  .spinner{ width:46px; height:46px; margin:0 auto 18px; border-radius:50%; border:3px solid var(--line); border-top-color: var(--gold); animation: spin 0.8s linear infinite; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .modal h3{ font-size:20px; }
+  .modal p{ color:var(--muted); font-size:13.5px; margin-top:8px; }
+  .success-icon{ width:56px; height:56px; margin:0 auto 16px; border-radius:50%; background: rgba(74,222,128,0.12); display:flex; align-items:center; justify-content:center; color: var(--success); font-size:26px; }
+  .order-box{ margin-top:16px; background:#0F1526; border:1px solid var(--line); border-radius:10px; padding:14px; text-align:left; font-size:13px; color:var(--muted); }
+  .order-box div{ display:flex; justify-content:space-between; padding:3px 0; }
+  .order-box b{ color: var(--text); }
+
+  footer{ color: var(--muted); font-size:12px; text-align:center; margin-top:30px; }
+</style>
+</head>
+<body>
+
+<div class="sparkle-field" id="sparkleField"></div>
+
+<div class="wrap">
+  <nav class="nav">
+    <div class="logo-text">CILAA<span>STORE</span></div>
+  </nav>
+
+  <div class="banner">
+    <div class="banner-tag">Mobile Legends</div>
+    <h1>Top Up Diamonds</h1>
+    <p>Via ID Server, tanpa perlu login akun. Proses fast 2–10 menit.</p>
+    <div class="pill">● Server online</div>
+  </div>
+
+  <div class="tracker" id="tracker">
+    <div class="tstep active" data-step="1"><div class="circle">1</div><span class="label">Region</span></div>
+    <div class="tstep" data-step="2"><div class="circle">2</div><span class="label">Paket</span></div>
+    <div class="tstep" data-step="3"><div class="circle">3</div><span class="label">ID</span></div>
+    <div class="tstep" data-step="4"><div class="circle">4</div><span class="label">Bayar</span></div>
+  </div>
+
+  <!-- STEP 1: REGION -->
+  <div class="card">
+    <h2>1. Pilih region</h2>
+    <div class="sub">Pilih sesuai server akun Mobile Legends kamu</div>
+    <div class="region-grid" id="regionGrid"></div>
+  </div>
+
+  <!-- STEP 2: CATEGORY & PACKAGE -->
+  <div class="card">
+    <h2>2. Pilih kategori & paket</h2>
+    <div class="sub">Semua harga sudah termasuk pajak</div>
+    <div class="cat-tabs" id="catTabs"></div>
+    <div class="pkg-grid" id="pkgGrid"></div>
+  </div>
+
+  <!-- STEP 3: USER ID -->
+  <div class="card">
+    <h2>3. Kirim User ID & Zone ID</h2>
+    <div class="sub">Cek di dalam game: buka ML → klik foto profil → lihat di bawah nama karakter</div>
+    <div class="field-row">
+      <div class="field" id="field-uid">
+        <label>User ID</label>
+        <input type="text" id="userId" placeholder="Contoh: 123456789" inputmode="numeric">
+        <span class="err">User ID wajib diisi</span>
+      </div>
+      <div class="field" id="field-zone">
+        <label>Zone ID</label>
+        <input type="text" id="zoneId" placeholder="Contoh: 1234" inputmode="numeric">
+        <span class="err">Zone ID wajib diisi</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: PAY -->
+  <div class="card">
+    <h2>4. Bayar & masuk</h2>
+    <div class="sub">Pilih metode pembayaran</div>
+    <div class="pay-methods" id="payMethods">
+      <div class="pay" data-pay="QRIS">QRIS</div>
+      <div class="pay" data-pay="DANA">DANA</div>
+      <div class="pay" data-pay="OVO">OVO</div>
+      <div class="pay" data-pay="GoPay">GoPay</div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-lines">
+        Region: <b id="sumRegion">Belum dipilih</b><br>
+        Paket: <b id="sumPkg">Belum dipilih</b><br>
+        Akun: <b id="sumAcc">-</b>
+      </div>
+      <div class="total">
+        <div class="label">Total Bayar</div>
+        <div class="value" id="sumTotal">Rp 0</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btnBayar" disabled onclick="processOrder()">Bayar Sekarang</button>
+  </div>
+
+  <div class="notes">
+    <b>📋 Catatan</b><br>
+    • Via ID server — tidak perlu login akun<br>
+    • Proses fast 2–10 menit<br>
+    • Cara cek User ID & Zone ID: Buka ML → klik foto profil → lihat di bawah nama karakter<br>
+  </div>
+
+  <footer>Template demo · ganti nama toko, region, kategori & harga sesuai kebutuhan</footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// Floating sparkle/diamond decoration
+(function(){
+  const field = document.getElementById('sparkleField');
+  const count = 22;
+  for(let i=0; i<count; i++){
+    const el = document.createElement('div');
+    const isDot = Math.random() < 0.4;
+    el.className = 'sparkle' + (isDot ? ' dot' : '');
+    const size = isDot ? (3 + Math.random()*4) : (8 + Math.random()*16);
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.left = (Math.random()*100) + 'vw';
+    const duration = 9 + Math.random()*10;
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = (-Math.random()*duration) + 's';
+    el.style.setProperty('--drift', (Math.random()*60 - 30) + 'px');
+    field.appendChild(el);
+  }
+})();
+
+const regions = ["Indonesia","Global","Malaysia","Singapore","Philippines","Brazil"];
+
+const categories = {
+  "Diamonds": [
+    { id:1, diamonds:86,  bonus:'', price:20000 },
+    { id:2, diamonds:172, bonus:'', price:39000 },
+    { id:3, diamonds:257, bonus:'+7 bonus', price:59000 },
+    { id:4, diamonds:344, bonus:'', price:78000 },
+    { id:5, diamonds:429, bonus:'+18 bonus', price:97000 },
+    { id:6, diamonds:514, bonus:'', price:116000 },
+  ],
+  "Weekly/Monthly": [
+    { id:7, diamonds:0, name:'Weekly Diamond Pass', bonus:'', price:29000 },
+    { id:8, diamonds:0, name:'Twilight Pass', bonus:'', price:149000 },
+    { id:9, diamonds:0, name:'Starlight Member', bonus:'', price:159000 },
+  ]
+};
+
+let selectedRegion = null;
+let selectedCat = 'Diamonds';
+let selectedPkg = null;
+let selectedPay = null;
+
+// render regions
+const regionGrid = document.getElementById('regionGrid');
+regions.forEach(r => {
+  const el = document.createElement('div');
+  el.className = 'region';
+  el.textContent = r;
+  el.addEventListener('click', () => {
+    selectedRegion = r;
+    document.querySelectorAll('.region').forEach(x => x.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('sumRegion').textContent = r;
+    markStepDone(1);
+    updateSummary();
+  });
+  regionGrid.appendChild(el);
+});
+
+// render category tabs
+const catTabs = document.getElementById('catTabs');
+Object.keys(categories).forEach((cat, i) => {
+  const el = document.createElement('div');
+  el.className = 'cat-tab' + (i===0 ? ' selected' : '');
+  el.textContent = cat;
+  el.addEventListener('click', () => {
+    selectedCat = cat;
+    document.querySelectorAll('.cat-tab').forEach(x => x.classList.remove('selected'));
+    el.classList.add('selected');
+    renderPackages(true);
+  });
+  catTabs.appendChild(el);
+});
+
+const pkgGrid = document.getElementById('pkgGrid');
+function renderPackages(withLoading){
+  pkgGrid.innerHTML = '';
+  selectedPkg = null;
+  updateSummary();
+
+  if(withLoading){
+    for(let i=0;i<3;i++){
+      const ph = document.createElement('div');
+      ph.className = 'pkg';
+      ph.innerHTML = `<div class="amt">Memuat...</div><div class="loading-bar"></div>`;
+      pkgGrid.appendChild(ph);
+    }
+    setTimeout(() => renderPackages(false), 500);
+    return;
+  }
+
+  categories[selectedCat].forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'pkg';
+    el.innerHTML = `
+      <div class="amt">${p.diamonds ? p.diamonds + ' 💎' : p.name}</div>
+      <span class="bonus">${p.bonus || ''}</span>
+      <div class="price">${formatRupiah(p.price)}</div>
+    `;
+    el.addEventListener('click', () => {
+      selectedPkg = p;
+      document.querySelectorAll('.pkg').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('sumPkg').textContent = p.diamonds ? `${p.diamonds} Diamond ${p.bonus ? '('+p.bonus+')' : ''}` : p.name;
+      markStepDone(2);
+      updateSummary();
+    });
+    pkgGrid.appendChild(el);
+  });
+}
+renderPackages(true);
+
+document.querySelectorAll('.pay').forEach(el => {
+  el.addEventListener('click', () => {
+    selectedPay = el.dataset.pay;
+    document.querySelectorAll('.pay').forEach(x => x.classList.remove('selected'));
+    el.classList.add('selected');
+    markStepDone(4);
+    updateSummary();
+  });
+});
+
+document.getElementById('userId').addEventListener('input', () => { markStepDone(3); updateSummary(); });
+document.getElementById('zoneId').addEventListener('input', () => { markStepDone(3); updateSummary(); });
+
+function markStepDone(n){
+  const steps = document.querySelectorAll('.tstep');
+  steps.forEach(s => {
+    const step = parseInt(s.dataset.step);
+    s.classList.remove('active','done');
+    if(step < n) s.classList.add('done');
+    if(step === n) s.classList.add('active');
+  });
+}
+
+function formatRupiah(n){ return 'Rp ' + n.toLocaleString('id-ID'); }
+
+function updateSummary(){
+  const uid = document.getElementById('userId').value.trim();
+  const zid = document.getElementById('zoneId').value.trim();
+  document.getElementById('sumAcc').textContent = (uid && zid) ? `${uid} (${zid})` : '-';
+  document.getElementById('sumTotal').textContent = selectedPkg ? formatRupiah(selectedPkg.price) : 'Rp 0';
+  const ready = selectedRegion && selectedPkg && selectedPay && uid && zid;
+  document.getElementById('btnBayar').disabled = !ready;
+}
+
+function validate(){
+  let ok = true;
+  const uid = document.getElementById('userId').value.trim();
+  const zid = document.getElementById('zoneId').value.trim();
+  document.getElementById('field-uid').classList.toggle('invalid', !uid);
+  document.getElementById('field-zone').classList.toggle('invalid', !zid);
+  if(!uid || !zid) ok = false;
+  return ok;
+}
+
+function processOrder(){
+  if(!validate() || !selectedPkg || !selectedPay || !selectedRegion) return;
+
+  const overlay = document.getElementById('overlay');
+  const modal = document.getElementById('modalContent');
+  overlay.classList.add('show');
+  modal.innerHTML = `
+    <div class="spinner"></div>
+    <h3>Memproses pembayaran...</h3>
+    <p>Simulasi transaksi ${selectedPay}, mohon tunggu sebentar.</p>
+  `;
+
+  setTimeout(() => {
+    const orderId = 'TD' + Date.now().toString().slice(-8);
+    const uid = document.getElementById('userId').value.trim();
+    const zid = document.getElementById('zoneId').value.trim();
+    modal.innerHTML = `
+      <div class="success-icon">✓</div>
+      <h3>Top Up Berhasil (Simulasi)</h3>
+      <p>Diamond akan otomatis masuk ke akun tujuan.</p>
+      <div class="order-box">
+        <div><span>No. Pesanan</span><b>${orderId}</b></div>
+        <div><span>Region</span><b>${selectedRegion}</b></div>
+        <div><span>Akun</span><b>${uid} (${zid})</b></div>
+        <div><span>Paket</span><b>${selectedPkg.diamonds ? selectedPkg.diamonds + ' Diamond' : selectedPkg.name}</b></div>
+        <div><span>Metode</span><b>${selectedPay}</b></div>
+        <div><span>Total</span><b>${formatRupiah(selectedPkg.price)}</b></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; margin-top:18px" onclick="document.getElementById('overlay').classList.remove('show')">Tutup</button>
+    `;
+  }, 1600);
+}
+</script>
+
+</body>
+</html>
