@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Legends Diamonds — Cilaa Store</title>
+<style>
+  :root{
+    --bg:#1a0a14;
+    --bg-soft:#25101c;
+    --panel:#2e1424;
+    --pink-100:#3a1a2c;
+    --pink-300:#ff8fc4;
+    --pink-500:#ff5fa2;
+    --pink-600:#ff2d87;
+    --pink-700:#ff2d87;
+    --pink-glow:rgba(255,45,135,.45);
+    --ink:#ffe3f0;
+    --ink-soft:#c9a3bd;
+    --white:#2e1424;
+    --green:#25d366;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    position:relative;
+    overflow-x:hidden;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  /* Sparkle diamond decorations */
+  .sparkle-layer{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    pointer-events:none;z-index:0;overflow:hidden;
+  }
+  .sparkle{
+    position:absolute;
+    width:14px;height:14px;
+    background:linear-gradient(145deg, var(--pink-300), var(--pink-600));
+    clip-path:polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    opacity:.55;
+    filter:drop-shadow(0 0 6px var(--pink-glow));
+    animation:floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(0) rotate(0deg);opacity:0;}
+    10%{opacity:.6;}
+    90%{opacity:.5;}
+    100%{transform:translateY(-110vh) rotate(180deg);opacity:0;}
+  }
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 40px;
+    background:linear-gradient(180deg,#25101c,#1a0a14);
+    border-bottom:1px solid var(--pink-100);
+    position:sticky;top:0;z-index:50;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .logo{
+    width:44px;height:44px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #ff8fc4, #ff2d87);
+    display:flex;align-items:center;justify-content:center;font-size:20px;
+  }
+  .brand-name{font-weight:800;font-size:17px;color:var(--pink-500);text-shadow:0 0 12px var(--pink-glow);}
+  .back-link{
+    display:flex;align-items:center;gap:6px;
+    font-weight:700;font-size:13.5px;color:var(--pink-500);
+    background:var(--panel);border:1px solid var(--pink-600);
+    padding:9px 18px;border-radius:999px;
+  }
+
+  .game-banner{
+    display:flex;align-items:center;gap:20px;
+    padding:28px 40px;
+    background:linear-gradient(120deg,#2e1424,#3a1a2c);
+    border-bottom:1px solid var(--pink-100);
+    position:relative;z-index:1;
+  }
+  .game-icon{
+    width:64px;height:64px;border-radius:16px;
+    background:linear-gradient(135deg,#ff2d87,#ff8fc4);
+    display:flex;align-items:center;justify-content:center;font-size:30px;
+    flex:none;
+    box-shadow:0 0 20px var(--pink-glow);
+  }
+  .game-info h1{margin:0 0 4px;font-size:22px;font-weight:900;color:var(--pink-500);text-shadow:0 0 14px var(--pink-glow);}
+  .game-info p{margin:0;font-size:13px;color:var(--ink-soft);}
+
+  .container{max-width:1100px;margin:0 auto;padding:30px 40px 60px;position:relative;z-index:1;}
+
+  .form-box{
+    background:var(--panel);border:1px solid var(--pink-100);border-radius:16px;
+    padding:22px;margin-bottom:30px;
+    box-shadow:0 6px 22px rgba(255,45,135,.15);
+  }
+  .form-box label{
+    display:block;font-weight:700;font-size:13px;color:var(--pink-500);margin-bottom:8px;
+  }
+  .form-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .form-row input{
+    flex:1;min-width:180px;
+    padding:12px 16px;border-radius:10px;
+    border:1px solid var(--pink-100);
+    font-size:14px;background:var(--bg-soft);color:var(--ink);
+  }
+  .form-row input::placeholder{color:var(--ink-soft);}
+  .form-row input:focus{outline:2px solid var(--pink-600);}
+
+  .section-title{
+    display:flex;align-items:center;gap:12px;margin-bottom:18px;
+  }
+  .section-title h2{
+    font-size:17px;font-weight:800;color:var(--pink-500);margin:0;text-shadow:0 0 10px var(--pink-glow);
+  }
+  .section-title .rule{flex:1;height:2px;background:linear-gradient(90deg,var(--pink-600),transparent);}
+
+  .grid-wrapper{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:12px;
+  }
+  .diamond-card{
+    background:var(--panel);
+    border:2px solid var(--pink-100);
+    border-radius:14px;
+    padding:16px 12px;
+    text-align:center;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .diamond-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--pink-600);
+    box-shadow:0 10px 24px var(--pink-glow);
+  }
+  .diamond-card.selected{
+    border-color:var(--pink-600);
+    background:linear-gradient(160deg,#3a1a2c,#2e1424);
+    box-shadow:0 10px 26px var(--pink-glow);
+  }
+  .diamond-amount{
+    display:flex;align-items:center;justify-content:center;gap:5px;
+    font-weight:800;font-size:15px;color:var(--ink);margin-bottom:8px;
+  }
+  .diamond-amount .dia-icon{font-size:14px;}
+  .diamond-price{
+    font-weight:900;font-size:13.5px;color:var(--pink-500);
+  }
+
+  .cta{
+    margin-top:36px;
+    background:linear-gradient(135deg, #3a1a2c, #2e1424);
+    border:1px solid var(--pink-100);
+    border-radius:20px;text-align:center;padding:34px 24px;
+  }
+  .cta h3{font-size:19px;font-weight:900;color:var(--pink-500);margin:0 0 8px;text-shadow:0 0 12px var(--pink-glow);}
+  .cta p{color:var(--ink-soft);margin:0 0 20px;font-size:13.5px;}
+  .wa-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--green);color:white;font-weight:800;font-size:14px;
+    padding:13px 28px;border-radius:999px;
+    box-shadow:0 10px 22px rgba(37,211,102,.35);
+  }
+
+  footer{text-align:center;padding:24px;color:var(--ink-soft);font-size:12.5px;border-top:1px solid var(--pink-100);position:relative;z-index:1;}
+
+  @media(max-width:640px){
+    header,.game-banner,.container{padding-left:18px;padding-right:18px;}
+    .grid-wrapper{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+  }
+</style>
+</head>
+<body>
+
+<div class="sparkle-layer" id="sparkleLayer"></div>
+
+<header>
+  <div class="brand">
+    <div class="logo">
+      <img src="fotocila.jpeg" alt="Logo Cilaa Store" width="50" height="50" style="border-radius: 50%; object-fit: cover;">
+    </div>
+    <div class="brand-name">CILAA<b>STORE</b></div>
+  </div>
+  <a class="back-link" href="#">← Kembali ke Beranda</a>
+</header>
+
+<div class="game-banner">
+  <div class="game-icon">⚔️</div>
+  <div class="game-info">
+    <h1>Mobile Legends: Bang Bang</h1>
+    <p>Top up Diamonds masuk otomatis, cukup masukin User ID & Zone ID.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="form-box">
+    <label>Masukkan Data Akun</label>
+    <div class="form-row">
+      <input type="text" placeholder="User ID (contoh: 123456789)">
+      <input type="text" placeholder="Zone ID (contoh: 2001)">
+    </div>
+  </div>
+
+  <div class="section-title"><h2>💎 Pilih Nominal Diamond</h2><div class="rule"></div></div>
+
+  <div class="grid-wrapper" id="diamondGrid">
+    <!-- generated by JS -->
+  </div>
+
+  <div class="cta">
+    <h3>Sudah pilih nominal? 💬</h3>
+    <p>Klik pesan di WhatsApp, admin bantu proses top up kamu.</p>
+    <a class="wa-btn" id="waBtn" href="https://wa.me/6289517355160" target="_blank">📱 Pesan via WhatsApp</a>
+  </div>
+
+</div>
+
+<footer>© 2026 Nowie Store — Harga dapat berubah sewaktu-waktu tanpa pemberitahuan.</footer>
+
+<script>
+  const priceList = [
+    [3, 1100], [5, 1570], [10, 3000], [11, 3080], [15, 4480],
+    [28, 7800], [36, 9780], [44, 12000], [50, 13000], [54, 14000],
+    [59, 15300], [65, 17500], [70, 18900], [75, 20290], [80, 21500],
+    [88, 23150], [92, 24300], [98, 26100], [110, 29000], [128, 33800],
+    [140, 36890], [145, 37600], [150, 39600], [167, 43800], [173, 45000],
+    [182, 47800], [194, 50600], [200, 51999], [225, 58850], [240, 62300],
+    [250, 64900], [257, 66800], [259, 67600], [277, 71990], [284, 73850],
+    [296, 76500], [305, 79000], [336, 87000], [350, 90660], [366, 95000],
+    [372, 96650], [388, 100300], [408, 104890], [429, 110400], [448, 116000],
+    [460, 118700], [500, 128800], [568, 142500], [600, 151800], [659, 167280],
+    [758, 192000], [878, 220550], [966, 237400], [1050, 259750], [1220, 303000],
+    [1704, 424200], [2232, 533000], [2625, 628700], [3453, 839000]
+  ];
+
+  function formatRupiah(n){
+    return "Rp " + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  const grid = document.getElementById("diamondGrid");
+  let selectedCard = null;
+  let selectedData = null;
+
+  priceList.forEach(([amount, price]) => {
+    const card = document.createElement("div");
+    card.className = "diamond-card";
+    card.innerHTML = `
+      <div class="diamond-amount"><span class="dia-icon">💎</span> ${amount}</div>
+      <div class="diamond-price">${formatRupiah(price)}</div>
+    `;
+    card.addEventListener("click", () => {
+      if(selectedCard) selectedCard.classList.remove("selected");
+      card.classList.add("selected");
+      selectedCard = card;
+      selectedData = { amount, price };
+      const waBtn = document.getElementById("waBtn");
+      const text = encodeURIComponent(`Halo min, saya mau top up Mobile Legends ${amount} Diamond seharga ${formatRupiah(price)}.`);
+      waBtn.href = `https://wa.me/6289517355160?text=${text}`;
+    });
+    grid.appendChild(card);
+  });
+
+  // Generate floating sparkle diamonds
+  const sparkleLayer = document.getElementById("sparkleLayer");
+  const sparkleCount = 28;
+  for(let i = 0; i < sparkleCount; i++){
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    const size = 8 + Math.random() * 14;
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = Math.random() * 100 + "vh";
+    s.style.animationDuration = (10 + Math.random() * 14) + "s";
+    s.style.animationDelay = (Math.random() * 12) + "s";
+    sparkleLayer.appendChild(s);
+  }
+</script>
+
+</body>
+</html>
